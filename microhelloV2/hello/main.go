@@ -17,7 +17,7 @@ func main() {
 	reg := etcd.NewRegistry(registry.Addrs("127.0.0.1:2379"))
 
 	service := micro.NewService(
-		micro.Name("api.sjfbjs.com.hello"),
+		micro.Name("sjfbjs.com.api.hello"),
 		micro.Version("latest"),
 		micro.Metadata(map[string]string{
 			"type": "hello",
@@ -56,7 +56,7 @@ func main() {
 
 	// Register handler
 	_ = hello.RegisterHelloHandler(service.Server(), new(handler.Hello))
-	_ = micro.RegisterSubscriber("api.sjfbjs.com.hello", service.Server(), new(subscriber.Hello))
+	_ = micro.RegisterSubscriber("sjfbjs.com.api.hello", service.Server(), new(subscriber.Hello))
 
 	// Run the server
 	if err := service.Run(); err != nil {

@@ -13,10 +13,10 @@ import (
 func main() {
 	reg := etcd.NewRegistry(registry.Addrs("127.0.0.1:2379"))
 
-	service := micro.NewService(micro.Registry(reg), micro.Name("api.sjfbjs.com.hello-client"))
+	service := micro.NewService(micro.Registry(reg), micro.Name("sjfbjs.com.api.hello-client"))
 	service.Init()
 	// Use the generated client stub
-	cl := hello.NewHelloService("api.sjfbjs.com.hello", service.Client())
+	cl := hello.NewHelloService("sjfbjs.com.api.hello", service.Client())
 
 	// Make request
 	rsp, err := cl.Call(context.Background(), &hello.Request{
