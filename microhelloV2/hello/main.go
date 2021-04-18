@@ -5,15 +5,16 @@ import (
 	"github.com/micro/cli/v2"
 	"github.com/micro/go-micro/v2"
 	"github.com/micro/go-micro/v2/registry"
+	"github.com/micro/go-micro/v2/registry/etcd"
 	"github.com/micro/go-micro/v2/transport/grpc"
-	"github.com/micro/go-plugins/registry/consul/v2"
+	//"github.com/micro/go-plugins/registry/consul/v2"
 	"hello/handler"
-	"hello/subscriber"
 	hello "hello/proto/hello"
+	"hello/subscriber"
 )
 
 func main() {
-	reg := consul.NewRegistry(registry.Addrs("127.0.0.1:8500"))
+	reg := etcd.NewRegistry(registry.Addrs("127.0.0.1:2379"))
 
 	service := micro.NewService(
 		micro.Name("api.sjfbjs.com.hello"),
@@ -38,15 +39,15 @@ func main() {
 	// override the above settings. Options defined here will
 	// override anything set on the command line.
 	service.Init(
-		// Add runtime action
-		// We could actually do this above
-		//micro.Action(func(c *cli.Context) error {
-		//	if c.Bool("run_client") {
-		//		runClient(service)
-		//		os.Exit(0)
-		//	}
-		//	return nil
-		//}),
+	// Add runtime action
+	// We could actually do this above
+	//micro.Action(func(c *cli.Context) error {
+	//	if c.Bool("run_client") {
+	//		runClient(service)
+	//		os.Exit(0)
+	//	}
+	//	return nil
+	//}),
 	)
 
 	// By default we'll run the server unless the flags catch us
@@ -61,8 +62,5 @@ func main() {
 	if err := service.Run(); err != nil {
 		fmt.Println(err)
 	}
-
-
-
 
 }
